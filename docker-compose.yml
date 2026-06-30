@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  app:
+    env_file:
+    - ./.env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_convenio
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    environment:
+        APP_ENV: local
+        APP_DEBUG: ${APP_DEBUG}
+        APP_URL: https://${APP_ADDRESS}
+        APACHE_DOCUMENT_ROOT: /var/www/html/public
+    networks:
+      - laravel-net
+
+  db:
+    env_file:
+    - ./.env
+    image: mysql:8.0.28
+    container_name: laravel_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - laravel-net
+
+  node:
+    image: node:20-alpine
+    container_name: laravel_node
+    working_dir: /var/www/html
+    ports:
+    - "5173:5173"
+    volumes:
+      - .:/var/www/html
+    command: >
+      sh -c "npm install && npm run dev"
+    networks:
+      - laravel-net
+
+volumes:
+  db_data:
+
+networks:
+  laravel-net:

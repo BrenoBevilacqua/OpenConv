@@ -1,0 +1,20 @@
+/*.table-styled {
+    @apply table-auto w-full border-collapse border border-gray-300 text-sm;
+}
+
+.table-styled thead {
+    @apply bg-gray-100;
+}
+
+.table-styled th, .table-styled td {
+    @apply border border-gray-300 px-2 py-1 text-left text-sm text-gray-700 align-top;
+}
+
+.table-styled tbody tr:hover {
+    @apply bg-gray-50;
+}
+
+.table-styled .actions-container {
+    @apply flex space-x-2;
+}
+*/

@@ -1,0 +1,3 @@
+[submodule "Aplicacao-Convenio"]
+	path = Aplicacao-Convenio
+	url = https://github.com/BrenoBevilacqua/Aplicacao-Convenio.git
